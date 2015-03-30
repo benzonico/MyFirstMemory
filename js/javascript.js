@@ -19,23 +19,21 @@ var generateColors = function() {
 
 
 var colors = generateColors();
+colors = colors.concat(colors);
 var picked = [];
 for (var r = 0; r < rows; r++) {
 	var row = document.createElement('span');
 	row.setAttribute("class", "row");
 	for (var c = 0; c < cols; c++) {
         var randomColorIndex = Math.floor(Math.random()*colors.length);
+        console.log(randomColorIndex+" --- "+colors.length);
         var randomColor = colors[randomColorIndex];
-        if(picked[randomColorIndex]) {
-        	colors.splice(randomColorIndex, 1);
-        } else {
-        	picked[randomColorIndex] = true;
-        }
-		var card = document.createElement('div')
+        colors.splice(randomColorIndex, 1);
+        var card = document.createElement('div')
 		card.setAttribute("class", "flip-container");
 		card.setAttribute("onClick", "MyFirstMemory.flip(this)");
 		card.innerHTML='<div class="flipper">'+
-		'		<div class="front">'+
+		'		<div class="front"style">'+
 		'		</div>'+
 		'		<div class="back" style="background-color:'+randomColor+'">'+
 		'		</div>'+
