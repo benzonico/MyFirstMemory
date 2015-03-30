@@ -18,6 +18,7 @@ var generateColors = function() {
 };
 
 
+//Generate 6 colors, then duplicate them to pick them twice in the array
 var colors = generateColors();
 colors = colors.concat(colors);
 var picked = [];
@@ -26,7 +27,6 @@ for (var r = 0; r < rows; r++) {
 	row.setAttribute("class", "row");
 	for (var c = 0; c < cols; c++) {
         var randomColorIndex = Math.floor(Math.random()*colors.length);
-        console.log(randomColorIndex+" --- "+colors.length);
         var randomColor = colors[randomColorIndex];
         colors.splice(randomColorIndex, 1);
         var card = document.createElement('div')
@@ -45,7 +45,7 @@ for (var r = 0; r < rows; r++) {
 }
 
 var flipNode = function(node) {
-		node.classList.toggle("flip");
+	node.classList.toggle("flip");
 };
 
 var flip = function(node) {
@@ -54,7 +54,6 @@ var flip = function(node) {
 		returnedCards.push(node);
 		if(returnedCards.length == 2) {
 			if(colorMatches()) {
-				console.log("It's a match !");
 				returnedCards = [];
 			} else {
 				returnAllCards();
