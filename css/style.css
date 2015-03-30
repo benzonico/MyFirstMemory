@@ -13,11 +13,10 @@ body{
 	float:left;
 	padding: 5px;
 }
-	/* flip the pane when hovered */
-	/*.flip-container:hover .flipper, .flip-container.hover .flipper {*/
-		.flip .flipper, .flip .flipper {
+/* flip the pane*/
+.flip .flipper, .flip .flipper {
 		transform: rotateY(180deg);
-	}
+}
 
 .flip-container, .front, .back {
 	width: 150px;
