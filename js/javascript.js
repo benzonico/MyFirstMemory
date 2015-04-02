@@ -17,33 +17,37 @@ var generateColors = function() {
 	return result;
 };
 
+var createGame = function(rows, cols) {
+	//Generate 6 colors, then duplicate them to pick them twice in the array
+	var colors = generateColors();
+	colors = colors.concat(colors);
 
-//Generate 6 colors, then duplicate them to pick them twice in the array
-var colors = generateColors();
-colors = colors.concat(colors);
-var picked = [];
-for (var r = 0; r < rows; r++) {
-	var row = document.createElement('span');
-	row.setAttribute("class", "row");
-	for (var c = 0; c < cols; c++) {
-        var randomColorIndex = Math.floor(Math.random()*colors.length);
-        var randomColor = colors[randomColorIndex];
-        colors.splice(randomColorIndex, 1);
-        var card = document.createElement('div')
-		card.setAttribute("class", "flip-container");
-		card.setAttribute("onClick", "MyFirstMemory.flip(this)");
-		card.innerHTML='<div class="flipper">'+
-		'		<div class="front"style">'+
-		'		</div>'+
-		'		<div class="back" style="background-color:'+randomColor+'">'+
-		'		</div>'+
-		'	</div>'+
-		'</div>';
-		row.appendChild(card);
+	for (var r = 0; r < rows; r++) {
+		var row = document.createElement('span');
+		row.setAttribute("class", "row");
+		for (var c = 0; c < cols; c++) {
+	        var randomColorIndex = Math.floor(Math.random()*colors.length);
+	        var randomColor = colors[randomColorIndex];
+	        colors.splice(randomColorIndex, 1);
+	        var card = document.createElement('div')
+			card.setAttribute("class", "flip-container");
+			card.setAttribute("onClick", "MyFirstMemory.flip(this)");
+			card.innerHTML='<div class="flipper">'+
+			'		<div class="front"style">'+
+			'		</div>'+
+			'		<div class="back" style="background-color:'+randomColor+'">'+
+			'		</div>'+
+			'	</div>'+
+			'</div>';
+			row.appendChild(card);
+		}
+		document.body.appendChild(row);
 	}
-	document.body.appendChild(row);
+	var resetButton = document.createElement('div');
+	resetButton.setAttribute("class", "reset-container");
+	resetButton.innerHTML = '<a class="reset-button" onClick="MyFirstMemory.reset()">Restart</a>';
+	document.body.appendChild(resetButton);
 }
-
 var flipNode = function(node) {
 	node.classList.toggle("flip");
 };
@@ -74,9 +78,17 @@ var colorMatches = function() {
 	return returnedCards[0].firstElementChild.children[1].style.backgroundColor==returnedCards[1].firstElementChild.children[1].style.backgroundColor;
 }
 
+var reset = function() {
+	document.body.innerHTML = "";
+	createGame(rows, cols);
+}
+
+createGame(rows, cols);
+
 var oPublic =
     {
       flip: flip,
+      reset: reset
     };
 return oPublic;
 
